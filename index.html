@@ -13,17 +13,30 @@
     <script defer src="./assets/js/form.js" type="text/javascript"></script>
   </head>
 <body>
+    <main>
+        <header>
+            <h1>Blog</h1>
+
+        </header>
   <!-- TODO: Create landing page elements to match the mock-up provided. At the very least, include the following elements. -->
 
   <!-- A form element that contains the following: -->
-
+        <form>
     <!-- An input element whose label and id are `username` -->
+            <label for="username">Username: </label>
+            <input id="username" placeholder="type username here"> 
 
     <!-- An input element whose label and id are `title` -->
+            <label for="title">Title: </label>
+            <input id="title" placeholder="type title here">
 
     <!-- A textarea element whose label and id are `content` -->
+            <label for="content">Content</label>
+            <textarea id="content" placeholder="Add content here"></textarea>
 
     <!-- A p element whose id is `error` -->
-
+            <p id="error"></p>
+        </form>
+    </main>
 </body>
 </html>
