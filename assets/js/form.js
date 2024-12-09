@@ -5,34 +5,24 @@ const form = document.querySelector('form');
 const handleFormSubmit = function(event) {
     event.preventDefault();
     
-    const name = document.querySelector('#username').value;
+    const username = document.querySelector('#username').value;
     const title = document.querySelector('#title').value;
     const content = document.querySelector('#content').value;
 
-    if (!name || !title || !content) {
+    if (!username || !title || !content) {
         alert("Please complete the form.");
         return;
     }
 
-    const formData = { 
-        name: name,
+    let formData = [];
+    
+    formData = { 
+        username: username,
         title: title,
         content: content,
     };
 
     localStorage.setItem('formData', JSON.stringify(formData));
-
-
-
-    // Figuring out why content isn't displayed. What value is content?    
-    // if (localStorage.getItem("formData") !== null) {
-    //     const data = JSON.parse(localStorage.getItem("formData"));
-    //     console.log(data);  // Valid data
-    //   } else {
-    //     console.log("No data found for 'myKey'");
-    //   }
-      
-
     redirectPage('../blog.html');
 }
 

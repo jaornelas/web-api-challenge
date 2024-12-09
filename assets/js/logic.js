@@ -2,9 +2,17 @@
 const toggle = document.querySelector("#toggle");
 const theme = document.querySelector(".theme");
 
-let mode = "light";
+let mode = localStorage.getItem('theme') || "light";
 
-
+if (mode === "dark") {
+  theme.setAttribute("class", "dark");
+  document.querySelector('#toggle').innerHTML = "🌒";
+  document.documentElement.style.setProperty("--circle-color", "blue");
+} else {
+  theme.setAttribute("class", "light");
+  document.querySelector('#toggle').innerHTML = "☀️";
+  document.documentElement.style.setProperty("--circle-color", "#ffb100");
+}
 
 toggle.addEventListener("click", function () {
   if (mode === "light") {
@@ -21,53 +29,20 @@ toggle.addEventListener("click", function () {
 
   }
 
-  
+localStorage.setItem('theme', mode);
 });
-
-// mode = localStorage.setItem('theme', theme);
-// const stored = localStorage.getItem('mode');
-
-// const stringed = JSON.stringify(stored);
-// console.log(stringed);
-
-
-
-
-
-
-// const toggleButton = document.getElementById('toggle');
-// //const container = document.querySelectorAll('.container');
-
-// // check local storage for mode preferance
-// const currentMode = localStorage.getItem('mode') || 'light';
-
-// //apply saved mode on page
-// document.body.classList.add(`${currentMode}-mode`);
-
-// // Listen for a click event on toggle switch
-// toggleButton.addEventListener('click', function () {
-
-
-//   // const newMode = document.body.classList.contains('light-mode') ? 'dark' : 'light';
-
-//   // //remove old mode and apply new 
-//   // document.body.classList.remove('light', 'dark');
-
-//   // document.body.classList.add(`${newMode}-mode`);
-  
-//   // localStorage.setItem('mode', newMode);
-// });
-
 
 // TODO: Create a function called `readLocalStorage` that reads from local storage and returns the data. If no data exists, return an empty array.
 function readLocalStorage() {
-  // const data =localStorage.getItem(formData);
+  const data = localStorage.getItem('formData');
 
   // //if data exists
-  // return data ? JSON.parse(data) : [];
-
+  return data ? JSON.parse(data) : [];
 };
 
+
+const myData = readLocalStorage();
+//console.log(myData[0].username);
 // TODO: Create a function called `storeLocalStorage` that takes a given object and saves the new data to the existing blog data in local storage.
 function storeLocalStorage() {
 

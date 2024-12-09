@@ -1,73 +1,71 @@
 // TODO: Create a variable that selects the main element, and a variable that selects the back button element
 const main = document.querySelector("main");
-const backButton = document.getElementById("back");
+const backButton = document.querySelector("#back");
+
 
 // TODO: Create a function that builds an element and appends it to the DOM
-const buildElement = function (element, text, className) {
-    const el = document.createElement(element);
+function buildElement(tag, text, className, id) {
+    const el = document.createElement(tag);
     el.textContent = text;
-    el.className = className;
-    main.appendChild(el);
+    if (className) {
+      el.className = className;
+    } 
+    if (id) {
+      el.id = id;
     }
+    return el; // Ensure the created element is returned
+  }
 
 
 // TODO: Create a function that handles the case where there are no blog posts to display
-const noPosts = function () {
-    buildElement('h3', 'No posts to dipslay', 'no-posts');
+function noPosts() {
+    buildEl('No blog posts are available', 'h2', main);
 };
+
 // TODO: Create a function called `renderBlogList` that renders the list of blog posts if they exist. If not, call the no posts function.
-function renderBlogList() {
 
-    //get the list from local storage
-    const blogPosts = JSON.parse(localStorage.getItem('formData')) || [];
-    console.log(blogPosts);
+const blogPosts = JSON.parse(localStorage.getItem('formData'));
+console.log(blogPosts);
+console.log(blogPosts.username);
 
-    //set container element to display 
-    const blogContainer = document.querySelector("article");
 
-    blogContainer.innerHTML = '';
-    console.log(blogPosts.length);
+const renderBlogList = function(formData) {
+  const article = buildElement("article", "", "card");
+  const titleEl = buildElement("h2", formData.title);
+  const contentEl = buildElement("blockquote", formData.content);
+  const nameEl = buildElement("p", `Posted by: ${formData.username}`);
 
-    //check to see if blog posts exist
-    if (blogPosts.length > 0) {
-        blogPosts.forEach(post => {
-            const postElement = document.createElement('div');
-            postElement.classList.add('blog-post');
+  article.appendChild(titleEl);
+  article.appendChild(contentEl);
+  article.appendChild(nameEl);
 
-            const titleElement = document.createElement('h2');
-            titleElement.textContent = post.title;
-
-            const contentElement = document.createElement('p');
-            contentElement.textConent = post.content;
-
-            postElement.appendChild(titleElement);
-            postElement.appendChild(contentElement);
-
-            blogListContainer.appendChild(postElement);
-
-        })
-    } else {
-        noPosts();
-    }
-    
+  main.appendChild(article);
 };
 
-
+document.addEventListener('DOMContentLoaded', function () {
+    const storedFormData = localStorage.getItem("formData");
+    if (storedFormData) {
+      const formData = JSON.parse(storedFormData);
+      renderBlogList(formData);
+    } else {
+      console.log("No form data found in local storage.");
+    }
+  });
 
 
 // TODO: Call the `renderBlogList` function
-renderBlogList();
-  // TODO: Implement the function body
+//renderBlogList();
 
-
-  
 
 backButton.addEventListener('click', function() {
-   
+    let redirectURL = '';
+
     const redirectPage = function(url) {
-        window.location.href = url;
+        redirectURL = url;
+        location.assign(url);
     };
-    redirectPage('../index.html');
+
+redirectPage('index.html')
 });
 
 
