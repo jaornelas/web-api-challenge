@@ -10,7 +10,12 @@ const handleFormSubmit = function(event) {
     const content = document.querySelector('#content').value;
 
     if (!username || !title || !content) {
-        alert("Please complete the form.");
+        let errorDiv = document.createElement("div");
+        errorDiv.style.color = "red";  // Optional: Make it red
+        errorDiv.textContent = "This is an error message";
+        document.body.appendChild(errorDiv);
+        
+        //alert("Please complete the form.");
         return;
     }
 
